@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.arcsoft.sdk_demo.R;
 import com.arcsoft.sdk_demo.activity.Activityaddface;
+import com.arcsoft.sdk_demo.activity.Activitybalance;
 import com.arcsoft.sdk_demo.activity.Application;
 import com.arcsoft.sdk_demo.activity.DetecterActivity;
 import com.arcsoft.sdk_demo.activity.homeActivity;
@@ -46,6 +47,13 @@ public class Fyonghu extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent Intent = new Intent(getActivity(), Activityaddface.class);
+                startActivityForResult(Intent,Activity.RESULT_FIRST_USER);
+            }
+        });
+        fragment.findViewById(R.id.btn_balance).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Intent = new Intent(getActivity(), Activitybalance.class);
                 startActivityForResult(Intent,Activity.RESULT_FIRST_USER);
             }
         });

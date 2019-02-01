@@ -32,6 +32,8 @@
         </activity>
         <activity android:name=".activity.homeActivity">
         </activity>
+        <activity android:name=".activity.Activitybalance">
+        </activity>
         <activity android:name=".activity.ActivityLogin">
         </activity>
         <activity android:name=".activity.Activityaddface">
