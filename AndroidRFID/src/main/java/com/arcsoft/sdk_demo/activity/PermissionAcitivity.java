@@ -91,7 +91,7 @@ public class PermissionAcitivity extends Activity {
 						@Override
 						public void run() {
 							mProgressDialog.cancel();
-							Intent intent = new Intent(PermissionAcitivity.this, homeActivity.class);
+							Intent intent = new Intent(PermissionAcitivity.this, ActivityLogin.class);
 							startActivityForResult(intent, PERMISSION_REQ);
 						}
 					});

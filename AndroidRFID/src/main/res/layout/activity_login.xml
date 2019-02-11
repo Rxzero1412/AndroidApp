@@ -105,7 +105,7 @@
                         android:id="@+id/Serviceagreement_cBox" />
 
                     <Button
-                        android:text=" 我已详细阅读并同意YuyingS使用许可及服务协议"
+                        android:text=" 我已详细阅读并同意本app使用许可及服务协议"
                         android:textColor="#919191"
                         android:textSize="10dp"
                         android:background="#00000000"

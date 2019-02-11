@@ -15,6 +15,7 @@
     <application
         android:name="com.arcsoft.sdk_demo.activity.Application"
         android:allowBackup="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true">
@@ -31,8 +32,9 @@
         <activity android:name="com.arcsoft.sdk_demo.activity.DetecterActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.homeActivity"
-            android:screenOrientation="landscape">
+        <activity android:name=".activity.homeActivity">
+        </activity>
+        <activity android:name=".activity.ActivityLogin">
         </activity>
         <activity android:name=".activity.goodsallActivity"
             android:screenOrientation="landscape">

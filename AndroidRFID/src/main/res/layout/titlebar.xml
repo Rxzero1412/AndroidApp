@@ -32,7 +32,7 @@
         android:ellipsize="marquee"
         android:gravity="center_horizontal|center"
         android:singleLine="true"
-        android:text="YuyingS"
+        android:text="用户App"
         android:textColor="#ffffffff"
         android:textSize="25dp" />
     <LinearLayout

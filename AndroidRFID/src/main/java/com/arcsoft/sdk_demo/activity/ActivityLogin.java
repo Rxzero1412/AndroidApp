@@ -28,7 +28,8 @@ import java.net.CookiePolicy;
 
 
 /*
-* Ccy
+* Ccy 2019.02.11
+* 登陆功能
 * */
 public class ActivityLogin extends Activity {
     int viacount=-2;
@@ -53,7 +54,6 @@ public class ActivityLogin extends Activity {
                 //startActivity(new Intent(ActivityLogin.this, Sign.class));
             }
         });
-// new httpimage().getImageViewInputStream("him.png");
         findViewById(R.id.Login_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +118,7 @@ public class ActivityLogin extends Activity {
         }
     }
     public void Loginjudge(String Username,String Password){
-        String mBaseUrl="http://192.168.88.75:8080/Imooc_http/";
+        String mBaseUrl="http://192.168.0.8:8080/servercloud/";
 
         OkHttpClient okHttpClient=new OkHttpClient();//拿到okhttpClient对象
         okHttpClient.setCookieHandler(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
@@ -126,7 +126,7 @@ public class ActivityLogin extends Activity {
         Request.Builder builder=new Request.Builder();//构造Request
         final Request request=builder
                 .get()
-                .url(mBaseUrl+"login?username="+Username+"&password="+Password+"&menu=0")
+                .url(mBaseUrl+"userlogin.do?username="+Username+"&password="+Password)
                 .build();
         Call call=okHttpClient.newCall(request);//将Request封装为Call
         call.enqueue(new Callback() {
@@ -137,7 +137,7 @@ public class ActivityLogin extends Activity {
             @Override
             public void onResponse(Response response) throws IOException {
                 final String res=response.body().string();
-                if(res.equals("loginsuccess")){
+                if(!res.equals("false")){
                     startneAty();
                 }
                 else {
@@ -150,7 +150,6 @@ public class ActivityLogin extends Activity {
         });
     }
     public void Toasts(String t){
-
         Toast toast=Toast.makeText(this,t, Toast.LENGTH_SHORT);
         //显示toast信息
         toast.show();
