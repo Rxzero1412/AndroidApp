@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.arcsoft.sdk_demo.R;
 import com.arcsoft.sdk_demo.Via.CircleImageView;
+import com.arcsoft.sdk_demo.activity.Sign.Sign;
+import com.arcsoft.sdk_demo.set.setdata;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
@@ -51,7 +53,7 @@ public class ActivityLogin extends Activity {
         findViewById(R.id.SignBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(ActivityLogin.this, Sign.class));
+                startActivity(new Intent(ActivityLogin.this, Sign.class));
             }
         });
         findViewById(R.id.Login_button).setOnClickListener(new View.OnClickListener() {
@@ -118,8 +120,7 @@ public class ActivityLogin extends Activity {
         }
     }
     public void Loginjudge(String Username,String Password){
-        String mBaseUrl="http://192.168.0.8:8080/servercloud/";
-
+        String mBaseUrl=new setdata().Urls;
         OkHttpClient okHttpClient=new OkHttpClient();//拿到okhttpClient对象
         okHttpClient.setCookieHandler(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
         //发送数据  login?username=hyman&password=1234
@@ -161,5 +162,6 @@ public class ActivityLogin extends Activity {
         Intent i=new Intent(ActivityLogin.this,homeActivity.class);
         i.putExtra("subjectcolor",subjectcolor);
         startActivity(i);
+        ActivityLogin.this.finish();
     }
 }

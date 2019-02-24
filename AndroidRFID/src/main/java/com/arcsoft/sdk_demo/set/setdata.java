@@ -5,8 +5,8 @@ package com.arcsoft.sdk_demo.set;
  */
 
 public class setdata {
-    static public String ip="192.168.43.54";
-    static public String Url="http://IP:8080/RFIDWebService/";
+    static public String ip="192.168.31.126";
+    static public String Url="http://IP:8080/servercloud/";
     static public String Urls;
     public setdata(){
         Urls=new String();
