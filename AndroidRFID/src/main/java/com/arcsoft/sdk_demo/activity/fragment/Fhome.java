@@ -53,6 +53,7 @@ public class Fhome extends Fragment{
             handler.obtainMessage().sendToTarget();
         }
     }
+
     private Handler handler=new Handler(){
 
         @Override
