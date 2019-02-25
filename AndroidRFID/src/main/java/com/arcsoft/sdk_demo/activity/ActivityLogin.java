@@ -139,7 +139,7 @@ public class ActivityLogin extends Activity {
             public void onResponse(Response response) throws IOException {
                 final String res=response.body().string();
                 if(!res.equals("false")){
-                    startneAty();
+                    startneAty(res);
                 }
                 else {
                     Looper.prepare();
@@ -158,9 +158,10 @@ public class ActivityLogin extends Activity {
     /*
     * 启动首页
     * */
-    public void startneAty(){
-        Intent i=new Intent(ActivityLogin.this,homeActivity.class);
+    public void startneAty(String userid){
+        Intent i=new Intent(ActivityLogin.this,homesActivity.class);
         i.putExtra("subjectcolor",subjectcolor);
+        i.putExtra("userid",userid);
         startActivity(i);
         ActivityLogin.this.finish();
     }
