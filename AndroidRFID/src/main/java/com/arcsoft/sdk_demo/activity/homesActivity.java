@@ -24,7 +24,7 @@ import com.arcsoft.sdk_demo.activity.fragment.Fhome;
 import com.arcsoft.sdk_demo.activity.fragment.Fyonghu;
 
 /**
- * Created by 83541 on 2017/7/8.
+ * Created by 83541 on 2018/2/22.
  */
 
 public class homesActivity extends AppCompatActivity {

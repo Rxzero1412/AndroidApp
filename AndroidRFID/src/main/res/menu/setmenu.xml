@@ -3,10 +3,10 @@
 
     <item
         android:id="@+id/subtitle"
-        android:title="聊天助手"/>
+        android:title="App介绍"/>
 
     <item
         android:id="@+id/translate"
-        android:title="阅读练习"/>
+        android:title="联系客服"/>
 
 </menu>

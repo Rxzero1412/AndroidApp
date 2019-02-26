@@ -65,18 +65,19 @@ public class ActivityLogin extends Activity {
                 String Password="";
                 EditText editText2 =(EditText)findViewById(R.id.Login_PasswordText_PasswordText);
                 Password=editText2.getText().toString();
-
-                if(Username.equals("")){
-                    Toasts("请输入用户名");
-                    return;
-                }
-                else {
-                    if(Password.equals("")){
-                        Toasts("请输入密码");
-                        return;
-                    }
-                }
-                Loginjudge(Username,Password);
+                startneAty("123");//TODO 方便测试用，下面代码不可删除
+//
+//                if(Username.equals("")){
+//                    Toasts("请输入用户名");
+//                    return;
+//                }
+//                else {
+//                    if(Password.equals("")){
+//                        Toasts("请输入密码");
+//                        return;
+//                    }
+//                }
+//                Loginjudge(Username,Password);
             }
         });
     }
