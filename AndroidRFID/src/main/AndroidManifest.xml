@@ -26,15 +26,15 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.arcsoft.sdk_demo.activity.RegisterActivity"
-            android:screenOrientation="landscape">
+        <activity android:name="com.arcsoft.sdk_demo.activity.RegisterActivity">
         </activity>
-        <activity android:name="com.arcsoft.sdk_demo.activity.DetecterActivity"
-            android:screenOrientation="portrait">
+        <activity android:name="com.arcsoft.sdk_demo.activity.DetecterActivity">
         </activity>
         <activity android:name=".activity.homeActivity">
         </activity>
         <activity android:name=".activity.ActivityLogin">
+        </activity>
+        <activity android:name=".activity.Activityaddface">
         </activity>
         <activity android:name=".activity.homesActivity">
         </activity>

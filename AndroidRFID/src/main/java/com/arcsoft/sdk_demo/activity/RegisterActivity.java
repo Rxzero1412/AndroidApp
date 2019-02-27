@@ -256,10 +256,8 @@ public class RegisterActivity extends Activity implements SurfaceHolder.Callback
 					LayoutInflater inflater = LayoutInflater.from(RegisterActivity.this);
 					View layout = inflater.inflate(R.layout.dialog_register, null);
 					mTextView = (TextView) layout.findViewById(R.id.tv_username);
-					//mTextView.setFilters(new InputFilter[]{new InputFilter.LengthFilter(16)});
 					mExtImageView = (ExtImageView) layout.findViewById(R.id.extimageview);
 					mExtImageView.setImageBitmap((Bitmap) msg.obj);
-					//final Bitmap face = (Bitmap) msg.obj;
 					SharedPreferences sp = getSharedPreferences("rfid_user", Context.MODE_PRIVATE);
 					username = sp.getString("Username", null);
 					balance= sp.getString("Balance", null);
@@ -267,19 +265,14 @@ public class RegisterActivity extends Activity implements SurfaceHolder.Callback
 					num=sp.getString("Num", null);
 					mTextView.setText(username);
 					new AlertDialog.Builder(RegisterActivity.this)
-							.setTitle("请确认注册名字")
+							.setTitle("请确认")
 							.setIcon(android.R.drawable.ic_dialog_info)
 							.setView(layout)
 							.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
-
-									System.out.println("qd");
-									String u=sd.Urls+"usersign?num="+num+"&username="+username+"&balance="+balance+"&RFID="+RFID;
-									//u=u.replace("N",num).replace("U",username).replace("B",balance).replace("rfid",RFID);
-									System.out.println(u);
-									new httpget(u);
-									((Application) RegisterActivity.this.getApplicationContext()).mFaceDB.addFace(num, mAFR_FSDKFace);
+									Toasts("添加成功");
+									((Application) RegisterActivity.this.getApplicationContext()).mFaceDB.addFace("face", mAFR_FSDKFace);
 									dialog.dismiss();
 									RegisterActivity.this.finish();
 
@@ -303,5 +296,10 @@ public class RegisterActivity extends Activity implements SurfaceHolder.Callback
 				}
 			}
 		}
+	}
+	public void Toasts(String t){
+		Toast toast=Toast.makeText(this,t, Toast.LENGTH_SHORT);
+		//显示toast信息
+		toast.show();
 	}
 }
