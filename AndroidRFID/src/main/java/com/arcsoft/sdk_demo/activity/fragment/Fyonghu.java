@@ -22,20 +22,24 @@ import com.arcsoft.sdk_demo.activity.Application;
 import com.arcsoft.sdk_demo.activity.DetecterActivity;
 import com.arcsoft.sdk_demo.activity.homeActivity;
 import com.arcsoft.sdk_demo.activity.usersignActivity;
+import com.arcsoft.sdk_demo.set.setdata;
 
 public class Fyonghu extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View fragment_voicechat=inflater.inflate(R.layout.fragment_yonghu, container, false);
-        fragment_voicechat.findViewById(R.id.btn_addface).setOnClickListener(new View.OnClickListener() {
+        View fragment=inflater.inflate(R.layout.fragment_yonghu, container, false);
+        fragment.findViewById(R.id.btn_addface).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent Intent = new Intent(getActivity(), Activityaddface.class);
                 startActivityForResult(Intent,Activity.RESULT_FIRST_USER);
             }
         });
-        return  fragment_voicechat;
+        TextView f_tv_username= (TextView) fragment.findViewById(R.id.f_tv_username);
+        f_tv_username.setText("用户名："+new setdata().username);
+
+        return  fragment;
     }
 
 

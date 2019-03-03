@@ -41,8 +41,6 @@ public class homesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homes);
-
-
         resetTabBtn();
         getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);

@@ -30,12 +30,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="用户名：123456"
+                android:id="@+id/f_tv_username"
                 android:textSize="20dp"/>
             <TextView
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="余额：123"
+                android:id="@+id/f_tv_balance"
                 android:textSize="20dp"/>
         </LinearLayout>
     </LinearLayout>

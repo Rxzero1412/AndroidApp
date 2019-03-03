@@ -36,6 +36,8 @@ import java.net.CookiePolicy;
 public class ActivityLogin extends Activity {
     int viacount=-2;
     String subjectcolor="default";
+    private String Username;
+    private String Password;
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -59,25 +61,23 @@ public class ActivityLogin extends Activity {
         findViewById(R.id.Login_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Username="";
+                Username="";
                 EditText editText1 =(EditText)findViewById(R.id.Login_UserText_UserText);
                 Username=editText1.getText().toString();
-                String Password="";
+                Password="";
                 EditText editText2 =(EditText)findViewById(R.id.Login_PasswordText_PasswordText);
                 Password=editText2.getText().toString();
-                startneAty("123");//TODO 方便测试用，下面代码不可删除
-//
-//                if(Username.equals("")){
-//                    Toasts("请输入用户名");
-//                    return;
-//                }
-//                else {
-//                    if(Password.equals("")){
-//                        Toasts("请输入密码");
-//                        return;
-//                    }
-//                }
-//                Loginjudge(Username,Password);
+                if(Username.equals("")){
+                    Toasts("请输入用户名");
+                    return;
+                }
+                else {
+                    if(Password.equals("")){
+                        Toasts("请输入密码");
+                        return;
+                    }
+                }
+                Loginjudge(Username,Password);
             }
         });
     }
@@ -124,7 +124,7 @@ public class ActivityLogin extends Activity {
         String mBaseUrl=new setdata().Urls;
         OkHttpClient okHttpClient=new OkHttpClient();//拿到okhttpClient对象
         okHttpClient.setCookieHandler(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
-        //发送数据  login?username=hyman&password=1234
+        //发送数据
         Request.Builder builder=new Request.Builder();//构造Request
         final Request request=builder
                 .get()
@@ -162,7 +162,8 @@ public class ActivityLogin extends Activity {
     public void startneAty(String userid){
         Intent i=new Intent(ActivityLogin.this,homesActivity.class);
         i.putExtra("subjectcolor",subjectcolor);
-        i.putExtra("userid",userid);
+        new setdata().userid=userid;
+        new setdata().username=Username;
         startActivity(i);
         ActivityLogin.this.finish();
     }
