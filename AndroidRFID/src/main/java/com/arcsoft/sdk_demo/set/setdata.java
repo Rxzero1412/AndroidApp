@@ -10,6 +10,7 @@ public class setdata {
     static public String Urls;
     static public String username;
     static public String userid;
+    static public String balance;
     public setdata(){
         Urls=new String();
         Urls=Url.replace("IP",ip);

@@ -2,6 +2,7 @@ package com.arcsoft.sdk_demo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -14,14 +15,24 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.util.ArrayList;
 import java.util.List;
 import com.arcsoft.sdk_demo.R;
 import com.arcsoft.sdk_demo.activity.fragment.Fzhangdan;
 import com.arcsoft.sdk_demo.activity.fragment.Fhome;
 import com.arcsoft.sdk_demo.activity.fragment.Fyonghu;
+import com.arcsoft.sdk_demo.set.setdata;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 /**
  * Created by 83541 on 2018/2/22.
@@ -42,6 +53,20 @@ public class homesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homes);
         resetTabBtn();
+
+        final Handler handler=new Handler();
+        Runnable runnable=new Runnable() {
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                getbalance(new setdata().userid);
+                System.out.println("获取用户数据");
+                handler.postDelayed(this, 20000);
+            }
+        };
+        runnable.run();
+
+
         getWindow().setSoftInputMode( WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
         initView();
@@ -61,7 +86,6 @@ public class homesActivity extends AppCompatActivity {
                 }
             }
         });
-
         mAdapter = new FragmentPagerAdapter(getSupportFragmentManager())
         {
             @Override
@@ -195,5 +219,31 @@ public class homesActivity extends AppCompatActivity {
             }
         });
         popupMenu.show();
+    }
+    public void getbalance(String userid){
+        String mBaseUrl=new setdata().Urls;
+        System.out.println(userid);
+        OkHttpClient okHttpClient=new OkHttpClient();//拿到okhttpClient对象
+        okHttpClient.setCookieHandler(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
+        //发送数据
+        Request.Builder builder=new Request.Builder();//构造Request
+        final Request request=builder
+                .get()
+                .url(mBaseUrl+"getGuser.do?userid="+userid)
+                .build();
+        Call call=okHttpClient.newCall(request);//将Request封装为Call
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+                e.printStackTrace();
+            }
+            @Override
+            public void onResponse(Response response) throws IOException {
+                final String res=response.body().string();
+                if(res.split(",")[0]!=null){
+                    new setdata().balance=res.split(",")[2];
+                }
+            }
+        });
     }
 }
