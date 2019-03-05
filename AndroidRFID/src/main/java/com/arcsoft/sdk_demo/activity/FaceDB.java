@@ -1,13 +1,18 @@
 package com.arcsoft.sdk_demo.activity;
 
+import android.os.Environment;
 import android.util.Log;
 
 import com.arcsoft.facerecognition.AFR_FSDKEngine;
 import com.arcsoft.facerecognition.AFR_FSDKError;
 import com.arcsoft.facerecognition.AFR_FSDKFace;
 import com.arcsoft.facerecognition.AFR_FSDKVersion;
+import com.arcsoft.sdk_demo.http.AndroidUploadFile;
+import com.arcsoft.sdk_demo.set.setdata;
 import com.guo.android_extend.java.ExtInputStream;
 import com.guo.android_extend.java.ExtOutputStream;
+
+import org.apache.http.client.ClientProtocolException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -180,6 +185,20 @@ public class FaceDB {
 				bos.writeBytes(face.getFeatureData());
 				bos.close();
 				fs.close();
+
+				final File file=new File(mDBPath + "/" + name + ".data");
+				new Thread(){
+					public void run() {
+						try {
+							AndroidUploadFile.uoloadFile(file.getAbsolutePath(), new setdata().Urls+"face/uploadfile");
+						} catch (ClientProtocolException e) {
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					};
+				}.start();
+
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

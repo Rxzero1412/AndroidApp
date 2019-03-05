@@ -29,7 +29,6 @@ import com.arcsoft.facerecognition.AFR_FSDKError;
 import com.arcsoft.facerecognition.AFR_FSDKFace;
 import com.arcsoft.facerecognition.AFR_FSDKVersion;
 import com.arcsoft.sdk_demo.R;
-import com.arcsoft.sdk_demo.http.httpget;
 import com.arcsoft.sdk_demo.set.setdata;
 import com.guo.android_extend.image.ImageConverter;
 import com.guo.android_extend.widget.ExtImageView;
@@ -272,7 +271,7 @@ public class RegisterActivity extends Activity implements SurfaceHolder.Callback
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
 									Toasts("添加成功");
-									((Application) RegisterActivity.this.getApplicationContext()).mFaceDB.addFace("face", mAFR_FSDKFace);
+									((Application) RegisterActivity.this.getApplicationContext()).mFaceDB.addFace(new setdata().userid, mAFR_FSDKFace);
 									dialog.dismiss();
 									RegisterActivity.this.finish();
 

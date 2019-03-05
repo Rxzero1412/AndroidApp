@@ -17,18 +17,34 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.arcsoft.sdk_demo.R;
+import com.arcsoft.sdk_demo.set.setdata;
 
 public class Activityaddface extends Activity {
     private static final int REQUEST_CODE_IMAGE_CAMERA = 1;
     private static final int REQUEST_CODE_IMAGE_OP = 2;
     private static final int REQUEST_CODE_OP = 3;
+    private Button SignBtn;
+    private String subjectcolor;
     private final String TAG = this.getClass().toString();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addface);
+        SignBtn= (Button) findViewById(R.id.SignBtn);
+        SignBtn.setText("");
+        subjectcolor=new setdata().subjectcolor;
+        style();
+        Button toolbarBack= (Button) findViewById(R.id.Title_Back);
+        toolbarBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Activityaddface.this.finish();
+            }
+        });
         findViewById(R.id.btn_user_addface).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -231,5 +247,23 @@ public class Activityaddface extends Activity {
     protected void onRestart() {
         super.onRestart();
         this.finish();
+    }
+
+    public void style(){
+        RelativeLayout titleA = (RelativeLayout) findViewById(R.id.layout_titlebar);
+        Button signbtn= (Button) findViewById(R.id.SignBtn);
+        signbtn.setText(" ");
+        if(subjectcolor.equals("M")){
+            titleA.setBackgroundColor(android.graphics.Color.parseColor("#1296db"));
+            signbtn.setBackgroundColor(android.graphics.Color.parseColor("#1296db"));
+        }
+        else if(subjectcolor.equals("F")){
+            titleA.setBackgroundColor(android.graphics.Color.parseColor("#ed4255"));
+            signbtn.setBackgroundColor(android.graphics.Color.parseColor("#ed4255"));
+        }
+        else{
+            titleA.setBackgroundColor(android.graphics.Color.parseColor("#707070"));
+            signbtn.setBackgroundColor(android.graphics.Color.parseColor("#707070"));
+        }
     }
 }

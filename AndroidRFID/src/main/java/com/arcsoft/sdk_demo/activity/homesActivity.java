@@ -137,7 +137,7 @@ public class homesActivity extends AppCompatActivity {
             }
         });
         Intent i=getIntent();
-        subjectcolor=i.getStringExtra("subjectcolor");
+        subjectcolor=new setdata().subjectcolor;
         style();
         Button toolbarBack= (Button) findViewById(R.id.Title_Back);
         toolbarBack.setOnClickListener(new View.OnClickListener() {

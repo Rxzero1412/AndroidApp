@@ -1,39 +1,19 @@
 package com.arcsoft.sdk_demo.activity.fragment;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Looper;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.arcsoft.sdk_demo.R;
+import com.arcsoft.sdk_demo.Via.CircleImageView;
 import com.arcsoft.sdk_demo.activity.Activityaddface;
 import com.arcsoft.sdk_demo.activity.Activitybalance;
-import com.arcsoft.sdk_demo.activity.Application;
-import com.arcsoft.sdk_demo.activity.DetecterActivity;
-import com.arcsoft.sdk_demo.activity.homeActivity;
-import com.arcsoft.sdk_demo.activity.usersignActivity;
 import com.arcsoft.sdk_demo.set.setdata;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
-import java.io.IOException;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
 
 public class Fyonghu extends Fragment {
     private TextView f_tv_username;
@@ -42,7 +22,22 @@ public class Fyonghu extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+
         View fragment=inflater.inflate(R.layout.fragment_yonghu, container, false);
+        CircleImageView CIA = (CircleImageView) fragment.findViewById(R.id.Via_image);
+        String subjectcolor=new setdata().subjectcolor;
+        if(subjectcolor.equals("M")){
+            CIA.setBorderColor(android.graphics.Color.parseColor("#1296db"));
+            CIA.setImageResource(R.drawable.mvia);
+        }
+        else if(subjectcolor.equals("F")){
+            CIA.setBorderColor(android.graphics.Color.parseColor("#ed4255"));
+            CIA.setImageResource(R.drawable.fvia);
+        }
+        else{
+            CIA.setBorderColor(android.graphics.Color.parseColor("#707070"));
+            CIA.setImageResource(R.drawable.via);
+        }
         fragment.findViewById(R.id.btn_addface).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

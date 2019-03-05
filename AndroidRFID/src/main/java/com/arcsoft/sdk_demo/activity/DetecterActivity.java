@@ -1,8 +1,6 @@
 package com.arcsoft.sdk_demo.activity;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.graphics.Rect;
@@ -13,10 +11,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.webkit.WebView;
-import android.widget.TextView;
 
-import com.arcsoft.ageestimation.ASAE_FSDKAge;
 import com.arcsoft.ageestimation.ASAE_FSDKEngine;
 import com.arcsoft.ageestimation.ASAE_FSDKError;
 import com.arcsoft.ageestimation.ASAE_FSDKFace;
@@ -33,12 +28,8 @@ import com.arcsoft.facetracking.AFT_FSDKVersion;
 import com.arcsoft.genderestimation.ASGE_FSDKEngine;
 import com.arcsoft.genderestimation.ASGE_FSDKError;
 import com.arcsoft.genderestimation.ASGE_FSDKFace;
-import com.arcsoft.genderestimation.ASGE_FSDKGender;
 import com.arcsoft.genderestimation.ASGE_FSDKVersion;
-import com.arcsoft.sdk_demo.AlertDialog.AlertDialogs;
 import com.arcsoft.sdk_demo.R;
-import com.arcsoft.sdk_demo.http.httpget;
-import com.arcsoft.sdk_demo.set.setdata;
 import com.guo.android_extend.java.AbsLoop;
 import com.guo.android_extend.java.ExtByteArrayOutputStream;
 import com.guo.android_extend.tools.CameraHelper;
@@ -46,11 +37,6 @@ import com.guo.android_extend.widget.CameraFrameData;
 import com.guo.android_extend.widget.CameraGLSurfaceView;
 import com.guo.android_extend.widget.CameraSurfaceView;
 import com.guo.android_extend.widget.CameraSurfaceView.OnCameraListener;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -69,16 +55,8 @@ public class DetecterActivity extends Activity implements OnCameraListener, View
 	private CameraSurfaceView mSurfaceView;
 	private CameraGLSurfaceView mGLSurfaceView;
 	private Camera mCamera;
-	private WebView web_run;
-	private TextView tv_username_run;
-	private TextView tv_money_run;
-	private setdata sd;
 	private int count;
-	private String username;
-	private String sum;
-	private String balance;
 	private View view;
-	OkHttpClient okHttpClient=new OkHttpClient();//拿到okhttpClient对象
 
 	AFT_FSDKVersion version = new AFT_FSDKVersion();
 	AFT_FSDKEngine engine = new AFT_FSDKEngine();
@@ -99,8 +77,6 @@ public class DetecterActivity extends Activity implements OnCameraListener, View
 	Runnable hide = new Runnable() {
 		@Override
 		public void run() {
-//			mTextView.setAlpha(0.5f);
-//			mImageView.setImageAlpha(128);
 		}
 	};
 
@@ -147,109 +123,24 @@ public class DetecterActivity extends Activity implements OnCameraListener, View
 				face2.clear();
 				face1.add(new ASAE_FSDKFace(mAFT_FSDKFace.getRect(), mAFT_FSDKFace.getDegree()));
 				face2.add(new ASGE_FSDKFace(mAFT_FSDKFace.getRect(), mAFT_FSDKFace.getDegree()));
-//				ASAE_FSDKError error1 = mAgeEngine.ASAE_FSDK_AgeEstimation_Image(mImageNV21, mWidth, mHeight, AFT_FSDKEngine.CP_PAF_NV21, face1, ages);
-//				ASGE_FSDKError error2 = mGenderEngine.ASGE_FSDK_GenderEstimation_Image(mImageNV21, mWidth, mHeight, AFT_FSDKEngine.CP_PAF_NV21, face2, genders);
-//				Log.d(TAG, "ASAE_FSDK_AgeEstimation_Image:" + error1.getCode() + ",ASGE_FSDK_GenderEstimation_Image:" + error2.getCode());
-//				Log.d(TAG, "age:" + ages.get(0).getAge() + ",gender:" + genders.get(0).getGender());
-//				final String age = ages.get(0).getAge() == 0 ? "年龄未知" : ages.get(0).getAge() + "岁";
-//				final String gender = genders.get(0).getGender() == -1 ? "性别未知" : (genders.get(0).getGender() == 0 ? "男" : "女");
-				//crop
 				byte[] data = mImageNV21;
 				YuvImage yuv = new YuvImage(data, ImageFormat.NV21, mWidth, mHeight, null);
 				ExtByteArrayOutputStream ops = new ExtByteArrayOutputStream();
 				yuv.compressToJpeg(mAFT_FSDKFace.getRect(), 80, ops);
-//				final Bitmap bmp = BitmapFactory.decodeByteArray(ops.getByteArray(), 0, ops.getByteArray().length);
 				try {
 					ops.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-
 				if (max > 0.6f) {
-					//fr success.
 					final float max_score = max;
 					Log.d(TAG, "fit Score:" + max + ", NAME:" + name);
 					final String mNameShow = name;
-					mHandler.removeCallbacks(hide);
-					mHandler.post(new Runnable() {
-						@Override
-						public void run() {
-							count++;
-							if(count==65535) count=0;
-							if(count%5==1){
-								web_run.loadUrl(sd.Urls+"showsellgoodlist");
-								Request.Builder builder=new Request.Builder();//构造Request
-								final Request request=builder
-										.get()
-										.url(sd.Urls+"numzuesrname?num="+mNameShow)
-										.build();
-								System.out.println(sd.Urls+"numzuesrname?num="+mNameShow);
-								Call call=okHttpClient.newCall(request);//将Request封装为Call
-								call.enqueue(new Callback() {
-									@Override
-									public void onFailure(Request request, IOException e) {
-										e.printStackTrace();
-									}
-									@Override
-									public void onResponse(Response response) throws IOException {
-										final String res=response.body().string();
-										//username=response.body().string();
-										String[]  strs=res.split(";");
-										username=strs[0];
-										sum=strs[1];
-										balance=strs[2];
-										runOnUiThread(new Runnable() {
-											@Override
-											public void run() {
-												tv_username_run.setText("用户名："+username);
-												System.out.println(username);
-												tv_money_run.setText("总价："+sum);
-												if(Integer.parseInt(sum)>Integer.parseInt(balance)){
-													new AlertDialogs().dialog("余额不足",view);
-													new httpget(sd.Urls+"sellreadstop");
-													try {
-														sleep(100);
-													} catch (InterruptedException e) {
-														e.printStackTrace();
-													}
-													new httpget(sd.Urls+"sellreadrun");
-												}
-											}
-										});
-									}
-								});
-							}
-//
-//							mTextView.setAlpha(1.0f);
-//							mTextView.setText(mNameShow);
-//							mTextView.setTextColor(Color.RED);
-//							mTextView1.setVisibility(View.VISIBLE);
-//							mTextView1.setText("置信度：" + (float)((int)(max_score * 1000)) / 1000.0);
-//							mTextView1.setTextColor(Color.RED);
-//							mImageView.setRotation(mCameraRotate);
-//							if (mCameraMirror) {
-////								mImageView.setScaleY(-1);
-//							}
-//							mImageView.setImageAlpha(255);
-//							mImageView.setImageBitmap(bmp);
-						}
-					});
 				} else {
 					DetecterActivity.this.runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-//							mTextView.setAlpha(1.0f);
-//							mTextView1.setVisibility(View.VISIBLE);
-//							mTextView1.setText( gender + "," + age);
-//							mTextView1.setTextColor(Color.RED);
-//							mTextView.setText(mNameShow);
-//							mTextView.setTextColor(Color.RED);
-//							mImageView.setImageAlpha(255);
-//							mImageView.setRotation(mCameraRotate);
-							if (mCameraMirror) {
-//								mImageView.setScaleY(-1);
-							}
-//							mImageView.setImageBitmap(bmp);
+
 						}
 					});
 				}
@@ -264,11 +155,6 @@ public class DetecterActivity extends Activity implements OnCameraListener, View
 			Log.d(TAG, "AFR_FSDK_UninitialEngine : " + error.getCode());
 		}
 	}
-
-//	private TextView mTextView;
-//	private TextView mTextView1;
-//	private ImageView mImageView;
-
 	/* (non-Javadoc)
 	 * @see android.app.Activity#onCreate(android.os.Bundle)
 	 */
@@ -283,7 +169,6 @@ public class DetecterActivity extends Activity implements OnCameraListener, View
 		mWidth = 1280;
 		mHeight = 960;
 		count=0;
-		new httpget(sd.Urls+"closedoor");
 		mFormat = ImageFormat.NV21;
 		mHandler = new Handler();
 		setContentView(R.layout.activity_camera);
@@ -293,45 +178,6 @@ public class DetecterActivity extends Activity implements OnCameraListener, View
 		mSurfaceView.setOnCameraListener(this);
 		mSurfaceView.setupGLSurafceView(mGLSurfaceView, true, mCameraMirror, mCameraRotate);
 		mSurfaceView.debug_print_fps(true, false);
-		sd=new setdata();
-		web_run= (WebView) findViewById(R.id.web_run);
-		web_run.loadUrl(sd.Urls+"showsellgoodlist");
-		new httpget(sd.Urls+"sellreadrun");
-		tv_username_run= (TextView) findViewById(R.id.tv_username_run);
-		tv_money_run=(TextView) findViewById(R.id.tv_money_run);
-		findViewById(R.id.btn_put).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				new httpget(sd.Urls+"sellreadstop");
-				String u=sd.Urls+"sellok?username="+username;
-				System.out.println(u);
-				new httpget(u);
-				//opendoor   closedoor
-
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						try {
-							sleep(200);
-							new httpget(sd.Urls+"opendoor");
-							sleep(2000);
-							new httpget(sd.Urls+"closedoor");
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-
-					}
-				}).start();
-			}
-		});
-		//snap
-//		mTextView = (TextView) findViewById(R.id.textView);
-//		mTextView.setText("");
-//		mTextView1 = (TextView) findViewById(R.id.textView1);
-//		mTextView1.setText("");
-//
-//		mImageView = (ImageView) findViewById(R.id.imageView);
-
 		AFT_FSDKError err = engine.AFT_FSDK_InitialFaceEngine(FaceDB.appid, FaceDB.ft_key, AFT_FSDKEngine.AFT_OPF_0_HIGHER_EXT, 16, 5);
 		Log.d(TAG, "AFT_FSDK_InitialFaceEngine =" + err.getCode());
 		err = engine.AFT_FSDK_GetVersion(version);
@@ -358,7 +204,6 @@ public class DetecterActivity extends Activity implements OnCameraListener, View
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		new httpget(sd.Urls+"sellreadstop");
 		mFRAbsLoop.shutdown();
 		AFT_FSDKError err = engine.AFT_FSDK_UninitialFaceEngine();
 		Log.d(TAG, "AFT_FSDK_UninitialFaceEngine =" + err.getCode());
@@ -430,14 +275,11 @@ public class DetecterActivity extends Activity implements OnCameraListener, View
 				mHandler.postDelayed(hide, 3000);
 			}
 		}
-		//copy rects
 		Rect[] rects = new Rect[result.size()];
 		for (int i = 0; i < result.size(); i++) {
 			rects[i] = new Rect(result.get(i).getRect());
 		}
-		//clear result.
 		result.clear();
-		//return the rects for render.
 		return rects;
 	}
 

@@ -20,7 +20,10 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.arcsoft.sdk_demo.R;
@@ -40,6 +43,7 @@ import static java.lang.Thread.sleep;
 
 public class Activitybalance extends Activity {
     private EditText et_balance;
+    private String subjectcolor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,16 @@ public class Activitybalance extends Activity {
         setContentView(R.layout.activity_balance);
         et_balance= (EditText) findViewById(R.id.et_balance);
         et_balance.addTextChangedListener(new EditTextJudgeNumberWatcher(et_balance));
+        Intent i=getIntent();
+        subjectcolor=new setdata().subjectcolor;
+        style();
+        Button toolbarBack= (Button) findViewById(R.id.Title_Back);
+        toolbarBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Activitybalance.this.finish();
+            }
+        });
         findViewById(R.id.btn_addbalane).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,6 +103,23 @@ public class Activitybalance extends Activity {
             }
         });
 
+    }
+    public void style(){
+        RelativeLayout titleA = (RelativeLayout) findViewById(R.id.layout_titlebar);
+        Button signbtn= (Button) findViewById(R.id.SignBtn);
+        signbtn.setText(" ");
+        if(subjectcolor.equals("M")){
+            titleA.setBackgroundColor(android.graphics.Color.parseColor("#1296db"));
+            signbtn.setBackgroundColor(android.graphics.Color.parseColor("#1296db"));
+        }
+        else if(subjectcolor.equals("F")){
+            titleA.setBackgroundColor(android.graphics.Color.parseColor("#ed4255"));
+            signbtn.setBackgroundColor(android.graphics.Color.parseColor("#ed4255"));
+        }
+        else{
+            titleA.setBackgroundColor(android.graphics.Color.parseColor("#707070"));
+            signbtn.setBackgroundColor(android.graphics.Color.parseColor("#707070"));
+        }
     }
     public void Toasts(String t){
         Toast toast=Toast.makeText(Activitybalance.this,t, Toast.LENGTH_SHORT);

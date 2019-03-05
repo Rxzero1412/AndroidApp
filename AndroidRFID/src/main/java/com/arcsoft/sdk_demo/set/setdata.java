@@ -11,6 +11,7 @@ public class setdata {
     static public String username;
     static public String userid;
     static public String balance;
+    static public String subjectcolor;
     public setdata(){
         Urls=new String();
         Urls=Url.replace("IP",ip);
