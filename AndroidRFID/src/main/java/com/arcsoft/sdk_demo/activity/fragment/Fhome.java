@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 
 import com.arcsoft.sdk_demo.R;
 import com.arcsoft.sdk_demo.activity.fragment.homeimage.VpAdapter;
@@ -17,6 +18,7 @@ import com.arcsoft.sdk_demo.activity.fragment.homeimage.him2;
 import com.arcsoft.sdk_demo.activity.fragment.homeimage.him3;
 import com.arcsoft.sdk_demo.activity.fragment.homeimage.him4;
 import com.arcsoft.sdk_demo.activity.fragment.homeimage.him5;
+import com.arcsoft.sdk_demo.set.setdata;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +36,11 @@ public class Fhome extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View fragment_Playvideo=inflater.inflate(R.layout.fragment_home, container, false);
-
-        return  fragment_Playvideo;
+        String mBaseUrl=new setdata().Urls;
+        View fragment=inflater.inflate(R.layout.fragment_home, container, false);
+        WebView webView = (WebView) fragment.findViewById(R.id.homes_id);
+        webView.loadUrl(mBaseUrl+"showgoodssql.do");//加载url
+        return  fragment;
     }
     /*自动播放*/
     @Override

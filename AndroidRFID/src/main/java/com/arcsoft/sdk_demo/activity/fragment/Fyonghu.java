@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.arcsoft.sdk_demo.R;
 import com.arcsoft.sdk_demo.Via.CircleImageView;
+import com.arcsoft.sdk_demo.activity.ActivityCPassword;
 import com.arcsoft.sdk_demo.activity.Activityaddface;
 import com.arcsoft.sdk_demo.activity.Activitybalance;
 import com.arcsoft.sdk_demo.set.setdata;
@@ -49,6 +50,13 @@ public class Fyonghu extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent Intent = new Intent(getActivity(), Activitybalance.class);
+                startActivityForResult(Intent,Activity.RESULT_FIRST_USER);
+            }
+        });
+        fragment.findViewById(R.id.btn_cpassword).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Intent = new Intent(getActivity(), ActivityCPassword.class);
                 startActivityForResult(Intent,Activity.RESULT_FIRST_USER);
             }
         });

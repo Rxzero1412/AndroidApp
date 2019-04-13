@@ -36,6 +36,7 @@
         </activity>
         <activity android:name=".activity.homesActivity">
         </activity>
+        <activity android:name=".activity.ActivityCPassword"/>
         <activity android:name=".activity.Sign.Sign">
         </activity>
     </application>

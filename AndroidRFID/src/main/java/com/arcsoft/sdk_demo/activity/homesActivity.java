@@ -11,6 +11,7 @@ import android.support.v7.widget.PopupMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -52,8 +53,8 @@ public class homesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homes);
+        String mBaseUrl=new setdata().Urls;
         resetTabBtn();
-
         final Handler handler=new Handler();
         Runnable runnable=new Runnable() {
             @Override
@@ -240,7 +241,7 @@ public class homesActivity extends AppCompatActivity {
             @Override
             public void onResponse(Response response) throws IOException {
                 final String res=response.body().string();
-                if(res.split(",")[0]!=null){
+                if(res.split(",")[0]!=null&&res.length()>2){
                     new setdata().balance=res.split(",")[2];
                 }
             }
